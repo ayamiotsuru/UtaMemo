@@ -13,6 +13,10 @@ return new class extends Migration
     {
         Schema::create('posts', function (Blueprint $table) {
             $table->id();
+            $table->boolean('status')->default(false);//練習中(false)orオハコ(true)
+            $table->string('song');//曲名
+            $table->string('artist');//歌手名
+            $table->text('comment');//コメント
             $table->timestamps();
         });
     }
