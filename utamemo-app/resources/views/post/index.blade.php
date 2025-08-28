@@ -41,6 +41,9 @@
                 <p class="mt-4 p-4">
                     {{ $post->comment }}
                 </p>
+                <p class="text-right">
+                    {{$post->created_at}} / {{$post->user->name??'匿名'}}
+                </p>
             </div>
         @endforeach
     </div>

@@ -12,7 +12,8 @@ class PostCotroller extends Controller
      */
     public function index() //一覧表示
     {
-        $posts = Post::all();
+        // $posts = Post::all();//すべての投稿を取得
+        $posts=Post::where('user_id', auth()->id())->get();//ログインユーザーのポストだけを取得する
         return view('post.index', compact('posts'));
     }
 
@@ -46,10 +47,11 @@ class PostCotroller extends Controller
         ]);
 
         $validated['user_id'] = auth()->id();
-        
+
         $post = Post::create($validated);
 
-        $posts = Post::all(); //投稿一覧を取得
+        // $posts = Post::all(); //投稿一覧を取得
+        $posts=Post::where('user_id', auth()->id())->get();//ログインユーザーのポスト
         return view('post.index', compact('posts'));
         // return back();
     }
