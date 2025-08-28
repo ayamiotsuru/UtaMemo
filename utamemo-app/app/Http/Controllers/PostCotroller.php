@@ -52,7 +52,7 @@ class PostCotroller extends Controller
 
         // $posts = Post::all(); //投稿一覧を取得
         $posts=Post::where('user_id', auth()->id())->get();//ログインユーザーのポスト
-        return view('post.index', compact('posts'));
+        return redirect()->route('post.index', compact('post'));
         // return back();
     }
 

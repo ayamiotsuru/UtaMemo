@@ -20,7 +20,7 @@
                 @if (!empty($post->pitch))
                     <p
                         class="px-6 py-2 rounded-full w-auto text-center  font-semibold text-sm border border-gray-400 ml-2">
-                        {{ $post->pitch }}
+                        キー：{{ $post->pitch }}
                     </p>
                 @endif
             </div>

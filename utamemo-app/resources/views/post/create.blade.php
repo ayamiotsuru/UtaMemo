@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            うたメモを登録する
+            うたメモを作成する
         </h2>
     </x-slot>
     <div class="max-w-7xl mx-auto px-6 pb-24">
@@ -56,7 +56,7 @@
                 <textarea name="comment" id="comment" cols="30" rows="10" class="w-auto py-2 border border-gray-300 rounded-md">{{ old('comment') }}</textarea>
             </div>
             <x-custom-button class="mt-8 bg-slate-600 text-white hover:bg-slate-900 !w-full h-16">
-                登録する
+                作成する
             </x-custom-button>
         </form>
     </div>
