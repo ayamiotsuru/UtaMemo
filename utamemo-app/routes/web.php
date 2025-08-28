@@ -8,6 +8,10 @@ use App\Http\Controllers\PostCotroller;
 Route::resource('post', PostCotroller::class)
     ->middleware('auth');//ログインユーザー以外は投稿ページ関連には飛べない。ログインにリダイレクトされる。
 
+//練習中とオハコの一覧ページを設定するためのルート
+Route::get('post/status/{status}', [PostCotroller::class, 'statusPosts'])
+->name('post.status');
+
 Route::get('/', function () {
     return view('welcome');
 });

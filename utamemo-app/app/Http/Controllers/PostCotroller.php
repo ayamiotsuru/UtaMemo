@@ -13,7 +13,7 @@ class PostCotroller extends Controller
     public function index() //一覧表示
     {
         // $posts = Post::all();//すべての投稿を取得
-        $posts=Post::where('user_id', auth()->id())->paginate(10);//ログインユーザーのポストだけを取得し10件ずつにする
+        $posts = Post::where('user_id', auth()->id())->paginate(10); //ログインユーザーのポストだけを取得し10件ずつにする
         return view('post.index', compact('posts'));
     }
 
@@ -51,7 +51,7 @@ class PostCotroller extends Controller
         $post = Post::create($validated);
 
         // $posts = Post::all(); //投稿一覧を取得
-        $posts=Post::where('user_id', auth()->id())->get();//ログインユーザーのポスト
+        $posts = Post::where('user_id', auth()->id())->get(); //ログインユーザーのポスト
         return redirect()->route('post.index', compact('post'));
         // return back();
     }
@@ -103,10 +103,20 @@ class PostCotroller extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Request $request,Post $post) //削除処理
+    public function destroy(Request $request, Post $post) //削除処理
     {
         $post->delete();
         $request->session()->flash('message', '削除しました。');
         return redirect()->route('post.index');
+    }
+
+    //練習中とオハコの一覧ページを設定
+    public function statusPosts($status)
+    {
+        $posts = Post::where('user_id', auth()->id())
+            ->where('status', $status)
+            ->paginate(10); //ログインユーザーのポストだけを取得し10件ずつにする
+
+        return view('post.status', compact('posts', 'status'));
     }
 }
