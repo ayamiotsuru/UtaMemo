@@ -5,7 +5,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostCotroller;
 
 //post用の機能を一括設定
-Route::resource('post', PostCotroller::class);
+Route::resource('post', PostCotroller::class)
+    ->middleware('auth');//ログインユーザー以外は投稿ページ関連には飛べない。ログインにリダイレクトされる。
 
 Route::get('/', function () {
     return view('welcome');
