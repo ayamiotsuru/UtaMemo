@@ -1,12 +1,13 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            うたメモを登録する
+            うたメモを更新する
         </h2>
     </x-slot>
     <div class="max-w-7xl mx-auto px-6 pb-24">
-        <form method="post" action="{{ route('post.store') }}">
+        <form method="post" action="{{ route('post.update', $post) }}">
             @csrf
+            @method('patch')
             <div class="mt-8">
                 <div class="w-full flex flex-col">
                     <label for="song" class="font-semibold mt-4 flex gap-2 mb-2">
@@ -15,7 +16,7 @@
                     </label>
                     <x-input-error :messages="$errors->get('song')" class="mt-2" />
                     <input type="text" name="song" class="w-auto pu-2 border border-gray-300 rounded-md"
-                        id="song" value="{{ old('song') }}">
+                        id="song" value="{{ old('song', $post->song) }}">
                 </div>
             </div>
             <div class="mt-8">
@@ -25,13 +26,13 @@
                         <span class="block p-1 rounded-full w-16 text-center bg-orange-600 text-white font-semibold text-xs">必須</span>
                     </label>
                     <x-input-error :messages="$errors->get('artist')" class="mt-2" />
-                    <input type="text" name="artist" class="w-auto pu-2 border border-gray-300 rounded-md" id="artist" value="{{ old('artist') }}">
+                    <input type="text" name="artist" class="w-auto pu-2 border border-gray-300 rounded-md" id="artist" value="{{ old('artist', $post->artist) }}">
                 </div>
             </div>
             <div class="mt-8">
                 <div class="w-full flex flex-col">
                     <label for="pitch" class="font-semibold mt-4 mb-2">音程キー</label>
-                    <input type="text" name="pitch" class="w-auto pu-2 border border-gray-300 rounded-md" id="pitch" value="{{ old('pitch') }}">
+                    <input type="text" name="pitch" class="w-auto pu-2 border border-gray-300 rounded-md" id="pitch" value="{{ old('pitch', $post->pitch) }}">
                 </div>
             </div>
             <div class="mt-4">
@@ -53,10 +54,10 @@
                 <span class="block p-1 rounded-full w-16 text-center bg-orange-600 text-white font-semibold text-xs">必須</span>
                 </label>
                 <x-input-error :messages="$errors->get('comment')" class="mt-2" />
-                <textarea name="comment" id="comment" cols="30" rows="10" class="w-auto py-2 border border-gray-300 rounded-md">{{ old('comment') }}</textarea>
+                <textarea name="comment" id="comment" cols="30" rows="10" class="w-auto py-2 border border-gray-300 rounded-md">{{ old('comment', $post->comment) }}</textarea>
             </div>
             <x-custom-button class="mt-8 bg-slate-600 text-white hover:bg-slate-900 !w-full h-16">
-                登録する
+                更新する
             </x-custom-button>
         </form>
     </div>

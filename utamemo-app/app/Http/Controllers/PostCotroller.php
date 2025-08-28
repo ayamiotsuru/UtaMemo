@@ -61,7 +61,7 @@ class PostCotroller extends Controller
      */
     public function show(Post $post) //個別表示
     {
-        //
+        return view('post.show', compact('post'));
     }
 
     /**
@@ -69,7 +69,7 @@ class PostCotroller extends Controller
      */
     public function edit(Post $post) //編集フォーム
     {
-        //
+        return view('post.edit', compact('post'));
     }
 
     /**
@@ -77,7 +77,27 @@ class PostCotroller extends Controller
      */
     public function update(Request $request, Post $post) //更新処理
     {
-        //
+        $validated = $request->validate([
+            'status' => 'required',
+            'song' => 'required|max:150',
+            'artist' => 'required|max:150',
+            'pitch' => 'nullable',
+            'comment' => 'required|max:400',
+        ], [
+            'status.required' => '練習中かオハコか選んでください。',
+            'song.required' => '曲名を入力してください。',
+            'song.max' => '曲名は150文字以内で入力してください。',
+            'artist.required' => '歌手名を入力してください。',
+            'artist.max' => '歌手名は150文字以内で入力してください。',
+            'comment.required' => '感想を入力してください。',
+            'comment.max' => '感想は400文字以内で入力してください。',
+        ]);
+
+        $validated['user_id'] = auth()->id();
+
+        $post->update($validated);
+        return view('post.show', compact('post'));
+
     }
 
     /**
@@ -85,6 +105,7 @@ class PostCotroller extends Controller
      */
     public function destroy(Post $post) //削除処理
     {
-        //
+        $post->delete();
+        return redirect()->route('post.index');
     }
 }

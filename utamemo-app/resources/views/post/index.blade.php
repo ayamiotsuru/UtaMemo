@@ -4,12 +4,13 @@
             うたメモ
         </h2>
     </x-slot>
-    <div class="max-w-7xl mx-auto px-6">
+    <div class="max-w-7xl mx-auto px-6 pb-24">
         @foreach ($posts as $post)
+        <a href="{{route('post.show',$post)}}" class="block transition-transform duration-300 hover:translate-x-4 hover:opacity-75">
             <div class="mt-4 p-8 bg-white w-full rounded-2xl">
                 <div class="flex items-center">
                     @if( $post->status == 0)
-                        <p class="px-6 py-2 rounded-full w-24 text-center bg-slate-700 text-white font-semibold text-sm">
+                        <p class="px-6 py-2 rounded-full w-24 text-center bg-sky-400 text-white font-semibold text-sm">
                             練習中
                         </p>
                     @else
@@ -45,6 +46,7 @@
                     {{$post->created_at}} / {{$post->user->name??'匿名'}}
                 </p>
             </div>
+        </a>
         @endforeach
     </div>
 </x-app-layout>
