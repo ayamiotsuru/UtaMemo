@@ -96,16 +96,17 @@ class PostCotroller extends Controller
         $validated['user_id'] = auth()->id();
 
         $post->update($validated);
-        return view('post.show', compact('post'));
-
+        $request->session()->flash('message', '更新しました。');
+        return redirect()->route('post.show', compact('post'));
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Post $post) //削除処理
+    public function destroy(Request $request,Post $post) //削除処理
     {
         $post->delete();
+        $request->session()->flash('message', '削除しました。');
         return redirect()->route('post.index');
     }
 }

@@ -5,9 +5,10 @@
         </h2>
     </x-slot>
     <div class="max-w-7xl mx-auto px-6">
+        <x-message :message="session('message')" />
         <div class="mt-4 p-8 bg-white w-full rounded-2xl">
             <div class="flex items-center">
-                @if( $post->status == 0)
+                @if ($post->status == 0)
                     <p class="px-6 py-2 rounded-full w-24 text-center bg-sky-400 text-white font-semibold text-sm">
                         練習中
                     </p>
@@ -16,8 +17,9 @@
                         オハコ
                     </p>
                 @endif
-                @if(!empty($post->pitch))
-                    <p class="px-6 py-2 rounded-full w-auto text-center  font-semibold text-sm border border-gray-400 ml-2">
+                @if (!empty($post->pitch))
+                    <p
+                        class="px-6 py-2 rounded-full w-auto text-center  font-semibold text-sm border border-gray-400 ml-2">
                         {{ $post->pitch }}
                     </p>
                 @endif
@@ -41,7 +43,7 @@
                 {{ $post->comment }}
             </p>
             <p class="text-right">
-                {{$post->created_at}} / {{$post->user->name??'匿名'}}
+                {{ $post->created_at }} / {{ $post->user->name ?? '匿名' }}
             </p>
             <div class="flex mt-4 justify-end">
                 <a href="{{ route('post.edit', $post) }}">
@@ -50,14 +52,14 @@
                     </x-custom-button>
                 </a>
                 <form method="post" action="{{ route('post.destroy', $post) }}" class="flex-2">
-                        @csrf
-                        @method('delete')
-                        <x-custom-button class="border ml-2 hover:bg-red-700 hover:text-white">
-                            削除
-                        </x-custom-button>
+                    @csrf
+                    @method('delete')
+                    <x-custom-button class="border ml-2 hover:bg-red-700 hover:text-white">
+                        削除
+                    </x-custom-button>
                 </form>
             </div>
         </div>
-        <a href="{{route('post.index')}}" class="block mt-8 w-24 m-auto text-center">一覧に戻る ></a>
+        <a href="{{ route('post.index') }}" class="block mt-8 w-24 m-auto text-center">一覧に戻る ></a>
     </div>
 </x-app-layout>

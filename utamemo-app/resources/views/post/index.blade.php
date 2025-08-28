@@ -5,6 +5,7 @@
         </h2>
     </x-slot>
     <div class="max-w-7xl mx-auto px-6 pb-24">
+        <x-message :message="session('message')" />
         @foreach ($posts as $post)
         <a href="{{route('post.show',$post)}}" class="block transition-transform duration-300 hover:translate-x-4 hover:opacity-75">
             <div class="mt-4 p-8 bg-white w-full rounded-2xl">
