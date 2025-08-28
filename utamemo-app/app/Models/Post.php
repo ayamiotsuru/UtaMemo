@@ -10,6 +10,7 @@ class Post extends Model
         'status',
         'song',
         'artist',
+        'pitch',
         'comment'
     ];
 }

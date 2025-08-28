@@ -1,21 +1,28 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            うたメモ一覧
+            うたメモ
         </h2>
     </x-slot>
     <div class="max-w-7xl mx-auto px-6">
         @foreach ($posts as $post)
             <div class="mt-4 p-8 bg-white w-full rounded-2xl">
-                @if( $post->status == 0)
-                    <p class="px-6 py-2 rounded-full w-24 text-center bg-slate-700 text-white font-semibold text-sm">
-                        練習中
-                    </p>
-                @else
-                    <p class="px-6 py-2 rounded-full w-24 text-center bg-orange-600 text-white font-semibold text-sm">
-                        オハコ
-                    </p>
-                @endif
+                <div class="flex items-center">
+                    @if( $post->status == 0)
+                        <p class="px-6 py-2 rounded-full w-24 text-center bg-slate-700 text-white font-semibold text-sm">
+                            練習中
+                        </p>
+                    @else
+                        <p class="px-6 py-2 rounded-full w-24 text-center bg-orange-600 text-white font-semibold text-sm">
+                            オハコ
+                        </p>
+                    @endif
+                    @if(!empty($post->pitch))
+                        <p class="px-6 py-2 rounded-full w-auto text-center  font-semibold text-sm border border-gray-400 ml-2">
+                            {{ $post->pitch }}
+                        </p>
+                    @endif
+                </div>
                 <div class="flex">
                     <div class="w-1/2">
                         <p class="px-4 pt-4">曲名</p>

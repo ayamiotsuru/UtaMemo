@@ -12,8 +12,8 @@ class PostCotroller extends Controller
      */
     public function index() //一覧表示
     {
-        $posts=Post::all();
-        return view('post.index',compact('posts'));
+        $posts = Post::all();
+        return view('post.index', compact('posts'));
     }
 
     /**
@@ -33,6 +33,7 @@ class PostCotroller extends Controller
             'status' => 'required',
             'song' => 'required|max:150',
             'artist' => 'required|max:150',
+            'pitch' => 'nullable',
             'comment' => 'required|max:400',
         ], [
             'status.required' => '練習中かオハコか選んでください。',
@@ -45,7 +46,9 @@ class PostCotroller extends Controller
         ]);
         $post = Post::create($validated);
 
-        return view('post.index');
+        $posts = Post::all(); //投稿一覧を取得
+        return view('post.index', compact('posts'));
+        // return back();
     }
 
     /**
