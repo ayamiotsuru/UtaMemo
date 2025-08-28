@@ -13,7 +13,7 @@ class PostCotroller extends Controller
     public function index() //一覧表示
     {
         // $posts = Post::all();//すべての投稿を取得
-        $posts=Post::where('user_id', auth()->id())->get();//ログインユーザーのポストだけを取得する
+        $posts=Post::where('user_id', auth()->id())->paginate(10);//ログインユーザーのポストだけを取得し10件ずつにする
         return view('post.index', compact('posts'));
     }
 
