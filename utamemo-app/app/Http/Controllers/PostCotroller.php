@@ -44,6 +44,9 @@ class PostCotroller extends Controller
             'comment.required' => '感想を入力してください。',
             'comment.max' => '感想は400文字以内で入力してください。',
         ]);
+
+        $validated['user_id'] = auth()->id();
+        
         $post = Post::create($validated);
 
         $posts = Post::all(); //投稿一覧を取得

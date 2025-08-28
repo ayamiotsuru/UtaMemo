@@ -11,6 +11,12 @@ class Post extends Model
         'song',
         'artist',
         'pitch',
-        'comment'
+        'comment',
+        'user_id'
     ];
+
+    //リレーションの設定
+    public function user() {
+        return $this->belongsTo(User::class);
+    }
 }
