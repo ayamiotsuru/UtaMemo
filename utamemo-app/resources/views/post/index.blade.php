@@ -6,7 +6,7 @@
     </x-slot>
     <div class="max-w-7xl mx-auto px-6 pb-24">
         <x-message :message="session('message')" />
-        @foreach ($posts as $post)
+        @forelse ($posts as $post){{-- 要素が空だった場合の処理も同時に書ける構文 --}}
         <a href="{{route('post.show',$post)}}" class="block transition-transform duration-300 hover:translate-x-4 hover:opacity-75">
             <div class="mt-4 p-8 bg-white w-full rounded-2xl">
                 <div class="flex items-center">
@@ -48,7 +48,9 @@
                 </p>
             </div>
         </a>
-        @endforeach
+        @empty
+            <p class="text-gray-600 mt-4">まだ投稿がありません。</p>
+        @endforelse
         <div class="my-6">
             {{ $posts->links() }}
         </div>

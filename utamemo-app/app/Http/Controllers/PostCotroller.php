@@ -114,7 +114,7 @@ class PostCotroller extends Controller
     public function statusPosts($status)
     {
         $posts = Post::where('user_id', auth()->id())
-            ->where('status', $status)
+            ->where('status', $status)// <- $statusでURLから受け取った値で絞り込み
             ->paginate(10); //ログインユーザーのポストだけを取得し10件ずつにする
 
         return view('post.status', compact('posts', 'status'));

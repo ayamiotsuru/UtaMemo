@@ -54,7 +54,7 @@
                 <form method="post" action="{{ route('post.destroy', $post) }}" class="flex-2">
                     @csrf
                     @method('delete')
-                    <x-custom-button class="border ml-2 hover:bg-red-700 hover:text-white">
+                    <x-custom-button class="border ml-2 hover:bg-orange-600 hover:text-white">
                         削除
                     </x-custom-button>
                 </form>
