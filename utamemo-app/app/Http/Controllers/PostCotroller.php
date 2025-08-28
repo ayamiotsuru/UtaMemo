@@ -12,7 +12,8 @@ class PostCotroller extends Controller
      */
     public function index() //一覧表示
     {
-        //
+        $posts=Post::all();
+        return view('post.index',compact('posts'));
     }
 
     /**
