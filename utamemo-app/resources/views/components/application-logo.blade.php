@@ -1,1 +1,2 @@
-<img src="{{ asset('img/logo.png') }}" alt="うたメモのロゴマーク" width="100%">
+@props(['width'])
+<img {{ $attributes->merge(['width' => $width.'%']) }} src="{{ asset('img/logo.svg') }}" alt="うたメモのロゴマーク">

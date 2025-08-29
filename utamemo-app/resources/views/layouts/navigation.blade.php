@@ -5,8 +5,8 @@
             <div class="flex">
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
-                    <a href="{{ route('post.index') }}" class="w-8">
-                        <x-application-logo class="block h-9 w-auto fill-current text-gray-800" />
+                    <a href="{{ route('post.index') }}">
+                        <x-application-logo width="100" class="fill-current text-gray-800 h-14" />
                     </a>
                 </div>
 
@@ -18,11 +18,11 @@
                     <x-nav-link :href="route('post.index')" :active="request()->routeIs('post.index')">
                         うたメモ
                     </x-nav-link>
-                    <x-nav-link :href="route('post.status', 0)" :active="request()->routeIs('post.status')  && request()->route('status') == 0">
-                        練習中一覧
-                    </x-nav-link>
                     <x-nav-link :href="route('post.status', 1)" :active="request()->routeIs('post.status') && request()->route('status') == 1">
                         オハコ一覧
+                    </x-nav-link>
+                    <x-nav-link :href="route('post.status', 0)" :active="request()->routeIs('post.status')  && request()->route('status') == 0">
+                        練習中一覧
                     </x-nav-link>
                     <x-nav-link :href="route('post.create')" :active="request()->routeIs('post.create')">
                         新規作成
@@ -83,7 +83,7 @@
             </div>
         </div>
     </div>
-
+　
     <!-- Responsive Navigation Menu -->
     <div :class="{ 'block': open, 'hidden': !open }" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
@@ -93,11 +93,11 @@
             <x-nav-link :href="route('post.index')" :active="request()->routeIs('post.index')">
                         うたメモ
                     </x-nav-link>
-                    <x-nav-link :href="route('post.status', 0)" :active="request()->routeIs('post.status')  && request()->route('status') == 0">
-                        練習中一覧
-                    </x-nav-link>
                     <x-nav-link :href="route('post.status', 1)" :active="request()->routeIs('post.status') && request()->route('status') == 1">
                         オハコ一覧
+                    </x-nav-link>
+                    <x-nav-link :href="route('post.status', 0)" :active="request()->routeIs('post.status')  && request()->route('status') == 0">
+                        練習中一覧
                     </x-nav-link>
                     <x-nav-link :href="route('post.create')" :active="request()->routeIs('post.create')">
                         新規作成
