@@ -2,14 +2,14 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\PostCotroller;
+use App\Http\Controllers\PostController;
 
 //post用の機能を一括設定
-Route::resource('post', PostCotroller::class)
+Route::resource('post', PostController::class)
     ->middleware('auth');//ログインユーザー以外は投稿ページ関連には飛べない。ログインにリダイレクトされる。
 
 //練習中とオハコの一覧ページを設定するためのルート
-Route::get('post/status/{status}', [PostCotroller::class, 'statusPosts'])//{status}で実際にアクセスされたURLを受け取り、コントローラー側で受け取り（0か1か）DB検索に利用される。
+Route::get('post/status/{status}', [PostController::class, 'statusPosts'])//{status}で実際にアクセスされたURLを受け取り、コントローラー側で受け取り（0か1か）DB検索に利用される。
 ->name('post.status');
 
 Route::get('/', function () {

@@ -91,11 +91,17 @@
                 {{ __('Dashboard') }}
             </x-responsive-nav-link> --}}
             <x-nav-link :href="route('post.index')" :active="request()->routeIs('post.index')">
-                うたメモ一覧
-            </x-nav-link>
-            <x-nav-link :href="route('post.create')" :active="request()->routeIs('post.create')">
-                新規作成
-            </x-nav-link>
+                        うたメモ
+                    </x-nav-link>
+                    <x-nav-link :href="route('post.status', 0)" :active="request()->routeIs('post.status')  && request()->route('status') == 0">
+                        練習中一覧
+                    </x-nav-link>
+                    <x-nav-link :href="route('post.status', 1)" :active="request()->routeIs('post.status') && request()->route('status') == 1">
+                        オハコ一覧
+                    </x-nav-link>
+                    <x-nav-link :href="route('post.create')" :active="request()->routeIs('post.create')">
+                        新規作成
+                    </x-nav-link>
         </div>
 
         <!-- Responsive Settings Options -->
