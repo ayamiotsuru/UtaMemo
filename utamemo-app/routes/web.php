@@ -9,7 +9,7 @@ Route::resource('post', PostCotroller::class)
     ->middleware('auth');//ログインユーザー以外は投稿ページ関連には飛べない。ログインにリダイレクトされる。
 
 //練習中とオハコの一覧ページを設定するためのルート
-Route::get('post/status/{status}', [PostCotroller::class, 'statusPosts'])
+Route::get('post/status/{status}', [PostCotroller::class, 'statusPosts'])//{status}で実際にアクセスされたURLを受け取り、コントローラー側で受け取り（0か1か）DB検索に利用される。
 ->name('post.status');
 
 Route::get('/', function () {

@@ -113,10 +113,10 @@ class PostCotroller extends Controller
     //練習中とオハコの一覧ページを設定
     public function statusPosts($status)
     {
-        $posts = Post::where('user_id', auth()->id())
-            ->where('status', $status)// <- $statusでURLから受け取った値で絞り込み
-            ->paginate(10); //ログインユーザーのポストだけを取得し10件ずつにする
+        $posts = Post::where('user_id', auth()->id())// ログインユーザーのポストだけを取得
+            ->where('status', $status)// さらに$statusでURLから受け取った値（ルート側の設定がある）で絞り込み
+            ->paginate(10); //10件ずつにする
 
-        return view('post.status', compact('posts', 'status'));
+        return view('post.status', compact('posts', 'status')); //compact関数で$postsと$statusという変数がBlade内で使えるようになる
     }
 }

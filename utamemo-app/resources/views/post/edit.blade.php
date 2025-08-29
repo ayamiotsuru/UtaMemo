@@ -56,7 +56,7 @@
                 <x-input-error :messages="$errors->get('comment')" class="mt-2" />
                 <textarea name="comment" id="comment" cols="30" rows="10" class="w-auto py-2 border border-gray-300 rounded-md">{{ old('comment', $post->comment) }}</textarea>
             </div>
-            <x-custom-button class="mt-8 bg-slate-600 text-white hover:bg-slate-900 !w-full h-16">
+            <x-custom-button class="mt-8 bg-slate-600 text-white hover:bg-sky-400 !w-full h-16">
                 更新する
             </x-custom-button>
         </form>

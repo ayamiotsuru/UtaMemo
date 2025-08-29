@@ -47,7 +47,7 @@
             </p>
             <div class="flex mt-4 justify-end">
                 <a href="{{ route('post.edit', $post) }}">
-                    <x-custom-button class="bg-slate-600 text-white hover:bg-slate-900">
+                    <x-custom-button class="bg-slate-600 text-white hover:bg-sky-400">
                         編集
                     </x-custom-button>
                 </a>
