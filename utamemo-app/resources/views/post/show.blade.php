@@ -51,7 +51,7 @@
                         編集
                     </x-custom-button>
                 </a>
-                <form method="post" action="{{ route('post.destroy', $post) }}" class="flex-2">
+                <form method="post" action="{{ route('post.destroy', $post) }}" class="flex-2" onsubmit="return confirm('本当に削除しますか？')">
                     @csrf
                     @method('delete')
                     <x-custom-button class="border ml-2 hover:bg-orange-600 hover:text-white">
