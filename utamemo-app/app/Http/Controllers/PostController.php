@@ -13,7 +13,7 @@ class PostController extends Controller
     public function index() //一覧表示
     {
         // $posts = Post::all();//すべての投稿を取得
-        $posts = Post::where('user_id', auth()->id())->paginate(10); //ログインユーザーのポストだけを取得し10件ずつにする
+        $posts = Post::where('user_id', auth()->id())->latest()->paginate(10); //ログインユーザーのポストだけを取得し10件ずつにする
         return view('post.index', compact('posts'));
     }
 
@@ -114,6 +114,7 @@ class PostController extends Controller
     public function statusPosts($status)
     {
         $posts = Post::where('user_id', auth()->id())// ログインユーザーのポストだけを取得
+            ->latest()
             ->where('status', $status)// さらに$statusでURLから受け取った値（ルート側の設定がある）で絞り込み
             ->paginate(10); //10件ずつにする
 
