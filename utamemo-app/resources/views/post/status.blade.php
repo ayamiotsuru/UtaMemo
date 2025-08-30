@@ -5,7 +5,7 @@
             @if ($status == 0)
                 練習中一覧
             @else
-                オハコ一覧
+                オハコ曲一覧
             @endif
         </h2>
     </x-slot>
@@ -25,7 +25,7 @@
                         @else
                             <p
                                 class="px-6 py-2 rounded-full w-24 text-center bg-orange-600 text-white font-semibold text-sm">
-                                オハコ
+                                オハコ曲
                             </p>
                         @endif
                         @if (!empty($post->pitch))

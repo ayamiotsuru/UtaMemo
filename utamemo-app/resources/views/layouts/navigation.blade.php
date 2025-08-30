@@ -19,7 +19,7 @@
                         うたメモ
                     </x-nav-link>
                     <x-nav-link :href="route('post.status', 1)" :active="request()->routeIs('post.status') && request()->route('status') == 1">
-                        オハコ一覧
+                        オハコ曲一覧
                     </x-nav-link>
                     <x-nav-link :href="route('post.status', 0)" :active="request()->routeIs('post.status')  && request()->route('status') == 0">
                         練習中一覧
@@ -94,7 +94,7 @@
                         うたメモ
                     </x-nav-link>
                     <x-nav-link :href="route('post.status', 1)" :active="request()->routeIs('post.status') && request()->route('status') == 1">
-                        オハコ一覧
+                        オハコ曲一覧
                     </x-nav-link>
                     <x-nav-link :href="route('post.status', 0)" :active="request()->routeIs('post.status')  && request()->route('status') == 0">
                         練習中一覧
