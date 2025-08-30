@@ -120,4 +120,11 @@ class PostController extends Controller
 
         return view('post.status', compact('posts', 'status')); //compact関数で$postsと$statusという変数がBlade内で使えるようになる
     }
+
+    //うたメモ利用者全員の投稿を取得するためのルート
+    public function everyonePosts() {
+        $posts=Post::latest()->paginate(10);
+        // $posts=Post::all();
+        return view('post.everyone', compact('posts'));
+    }
 }

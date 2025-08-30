@@ -27,6 +27,9 @@
                     <x-nav-link :href="route('post.create')" :active="request()->routeIs('post.create')">
                         新規作成
                     </x-nav-link>
+                    <x-nav-link :href="route('post.everyone')" :active="request()->routeIs('post.everyone')">
+                        みんなのうたメモ
+                    </x-nav-link>
                 </div>
             </div>
 
@@ -83,7 +86,7 @@
             </div>
         </div>
     </div>
-　
+
     <!-- Responsive Navigation Menu -->
     <div :class="{ 'block': open, 'hidden': !open }" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
@@ -101,6 +104,9 @@
                     </x-nav-link>
                     <x-nav-link :href="route('post.create')" :active="request()->routeIs('post.create')">
                         新規作成
+                    </x-nav-link>
+                    <x-nav-link :href="route('post.everyone')" :active="request()->routeIs('post.everyone')">
+                        みんなのうたメモ
                     </x-nav-link>
         </div>
 
