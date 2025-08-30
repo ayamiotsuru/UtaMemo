@@ -12,6 +12,8 @@ Route::resource('post', PostController::class)
 Route::get('post/status/{status}', [PostController::class, 'statusPosts'])//{status}で実際にアクセスされたURLを受け取り、コントローラー側で受け取り（0か1か）DB検索に利用される。
 ->name('post.status');
 
+
+
 Route::get('/', function () {
     return view('welcome');
 });

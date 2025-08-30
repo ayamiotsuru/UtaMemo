@@ -41,10 +41,10 @@
                     <span class="block p-1 rounded-full w-16 text-center bg-orange-600 text-white font-semibold text-xs
                      mr-8">必須</span>
                     <label>
-                        <input type="radio" name="status" value="0" id="status01"><span class="ml-1 mr-8">練習中</span>
+                        <input type="radio" name="status" value="1" id="status02"><span class="ml-1 mr-8">オハコ曲</span>
                     </label>
                     <label>
-                        <input type="radio" name="status" value="1" id="status02"><span class="ml-1">オハコ</span>
+                        <input type="radio" name="status" value="0" id="status01"><span class="ml-1">練習中</span>
                     </label>
                 </div>
             </div>

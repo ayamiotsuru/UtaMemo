@@ -19,12 +19,12 @@
                     <div class="flex items-center">
                         @if ($post->status == 0)
                             <p
-                                class="px-6 py-2 rounded-full w-24 text-center bg-sky-400 text-white font-semibold text-sm">
+                                class="px-6 py-2 rounded-full w-auto text-center bg-sky-400 text-white font-semibold text-sm">
                                 練習中
                             </p>
                         @else
                             <p
-                                class="px-6 py-2 rounded-full w-24 text-center bg-orange-600 text-white font-semibold text-sm">
+                                class="px-6 py-2 rounded-full w-auto text-center bg-orange-600 text-white font-semibold text-sm">
                                 オハコ曲
                             </p>
                         @endif
