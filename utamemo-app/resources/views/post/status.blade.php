@@ -3,9 +3,9 @@
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             @if ($status == 0)
-                練習中一覧
+                {{ Auth::user()->name }}の練習中の曲
             @else
-                オハコ曲一覧
+                {{ Auth::user()->name }}のオハコ曲
             @endif
         </h2>
     </x-slot>
