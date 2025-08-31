@@ -13,6 +13,9 @@ return new class extends Migration
     {
         Schema::create('comments', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('post_id')->constrained()->onDelete('cascade');//カラムの作成と外部キー制約、親レコード削除に連動して削除される
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');//カラムの作成と外部キー制約、親レコード削除に連動して削除される
+            $table->text('content');
             $table->timestamps();
         });
     }
