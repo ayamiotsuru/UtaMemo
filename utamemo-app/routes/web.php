@@ -6,9 +6,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
 
 //うたメモ利用者全員の投稿の中でステートを振り分けるためのルート
-Route::get('post/everyone/{status}',[PostController::class,'everyonePosts'])
+Route::get('post/everyone/{status}',[PostController::class,'everyoneStatusPosts'])
 ->middleware('auth')
-->name('post.');
+->name('post.everyone_status');
 
 //うたメモ利用者全員の投稿を取得するためのルート
 //post用の機能を一括設定より上に書かないと404エラーになる。（ルートの優先順位。上から下に評価される関係）
