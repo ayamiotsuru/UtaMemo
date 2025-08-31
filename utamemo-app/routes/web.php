@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
@@ -14,6 +15,9 @@ Route::get('post/everyone',[PostController::class,'everyonePosts'])
 Route::get('post/status/{status}', [PostController::class, 'statusPosts'])//{status}で実際にアクセスされたURLを受け取り、コントローラー側で受け取り（0か1か）DB検索に利用される。
 ->middleware('auth')
 ->name('post.status');
+
+//comment用の機能を一括設定
+Route::resource('post.comment', CommentController::class);
 
 //post用の機能を一括設定
 Route::resource('post', PostController::class)

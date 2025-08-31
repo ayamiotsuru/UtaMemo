@@ -60,6 +60,18 @@
                 </form>
             </div>
         </div>
+        {{-- コメント投稿フォーム --}}
+        <form action="post" action="{{ route('post.comment.store', $post->id) }}">
+            @csrf
+            <label for="content" class="font-semibold mt-8 flex gap-2 mb-2">
+                    コメント内容：
+            </label>
+            <textarea name="content" id="content" cols="30" rows="10" class="w-auto py-2 border border-gray-300 rounded-md"></textarea>
+            <x-custom-button class="border ml-2 hover:bg-orange-600 hover:text-white">
+                コメントする
+            </x-custom-button>
+        </form>
+        {{-- コメント投稿フォーム --}}
         <a href="{{ route('post.index') }}" class="block mt-8 w-24 m-auto text-center">一覧に戻る ></a>
     </div>
 </x-app-layout>
