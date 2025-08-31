@@ -31,7 +31,7 @@ class AuthenticatedSessionController extends Controller
         $user = Auth::user();//ログインユーザーのデータを取得
 
         // return redirect()->intended(route('dashboard', absolute: false));
-        return redirect()->intended('/post');
+        return redirect()->intended('/post');//ログイン後post一覧ページに飛ぶ設定
     }
 
     /**

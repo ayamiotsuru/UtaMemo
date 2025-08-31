@@ -5,6 +5,11 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
 
+//うたメモ利用者全員の投稿の中でステートを振り分けるためのルート
+Route::get('post/everyone/{status}',[PostController::class,'everyonePosts'])
+->middleware('auth')
+->name('post.');
+
 //うたメモ利用者全員の投稿を取得するためのルート
 //post用の機能を一括設定より上に書かないと404エラーになる。（ルートの優先順位。上から下に評価される関係）
 Route::get('post/everyone',[PostController::class,'everyonePosts'])
@@ -25,7 +30,8 @@ Route::resource('post', PostController::class)
     ->middleware('auth');//ログインユーザー以外は投稿ページ関連には飛べない。ログインにリダイレクトされる。
 
 Route::get('/', function () {
-    return view('welcome');
+    // return view('welcome');
+    return view('home');
 });
 
 Route::get('/dashboard', function () {
