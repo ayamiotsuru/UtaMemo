@@ -44,7 +44,7 @@
                 {{ $post->comment }}
             </p>
             <p class="text-right">
-                {{ $post->created_at }} / {{ $post->user->name ?? '匿名' }}
+                {{ $post->comments()->count() }} / {{ $post->created_at }} / {{ $post->user->name ?? '匿名' }}
             </p>
             <div class="flex mt-4 justify-end">
                 @if (auth()->check() && auth()->id() === $post->user_id)
