@@ -40,7 +40,7 @@ class CommentController extends Controller
             'content' => $request->content,//フォームから入力されたcontent内容
         ]);
 
-        return redirect()->route('post.show',  $post->id);//コメントしている該当の投稿個別ページに戻る
+        return redirect()->route('post.show', $post->id);//コメントしている該当の投稿個別ページに戻る
     }
 
     /**

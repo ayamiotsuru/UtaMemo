@@ -17,7 +17,8 @@ Route::get('post/status/{status}', [PostController::class, 'statusPosts'])//{sta
 ->name('post.status');
 
 //comment用の機能を一括設定
-Route::resource('post.comment', CommentController::class);
+Route::resource('post.comment', CommentController::class)
+    ->middleware('auth');
 
 //post用の機能を一括設定
 Route::resource('post', PostController::class)

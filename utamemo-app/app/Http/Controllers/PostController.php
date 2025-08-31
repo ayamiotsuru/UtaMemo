@@ -123,7 +123,9 @@ class PostController extends Controller
 
     //うたメモ利用者全員の投稿を取得するためのルート
     public function everyonePosts() {
-        $posts=Post::latest()->paginate(10);
+
+        $posts = Post::where('user_id', '!=', auth()->id())->latest()->paginate(10); //ログインユーザーの以外のポストだけを取得し10件ずつにする
+        // $posts=Post::latest()->paginate(10);
         // $posts=Post::all();
         return view('post.everyone', compact('posts'));
     }

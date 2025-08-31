@@ -46,31 +46,53 @@
                 {{ $post->created_at }} / {{ $post->user->name ?? '匿名' }}
             </p>
             <div class="flex mt-4 justify-end">
-                <a href="{{ route('post.edit', $post) }}">
-                    <x-custom-button class="bg-slate-600 text-white hover:bg-sky-400">
-                        編集
-                    </x-custom-button>
-                </a>
-                <form method="post" action="{{ route('post.destroy', $post) }}" class="flex-2" onsubmit="return confirm('本当に削除しますか？')">
+                @if (auth()->check() && auth()->id() === $post->user_id)
+                    <a href="{{ route('post.edit', $post) }}">
+                        <x-custom-button class="bg-slate-600 text-white hover:bg-sky-400">
+                            編集
+                        </x-custom-button>
+                    </a>
+                    <form method="post" action="{{ route('post.destroy', $post) }}" class="flex-2"
+                        onsubmit="return confirm('本当に削除しますか？')">
+                        @csrf
+                        @method('delete')
+                        <x-custom-button class="border ml-2 hover:bg-orange-600 hover:text-white">
+                            削除
+                        </x-custom-button>
+                    </form>
+                @endif
+            </div>
+        </div>
+        {{-- コメント表示 --}}
+        <div class="mt-4 p-8 bg-white w-full rounded-2xl">
+            <h3 class="mb-4 text-lg font-semibold">みんなからのコメント</h3>
+            @forelse($post->comments as $comment){{-- 要素が空だった場合の処理も同時に書ける構文 --}}
+                <div class="pt-10 pb-3">
+                    <p>{{ $comment->content }}</p>
+                    <p class="text-right"> {{ $comment->created_at }}  / {{ $comment->user->name ?? '匿名' }}</p>
+                </div>
+                <hr class="w-full">
+            @empty
+            <p class="text-gray-600 mt-4">まだコメントがありません。</p>
+            @endforelse
+        </div>
+        {{-- コメント表示 --}}
+        {{-- コメント投稿フォーム --}}
+        @if (auth()->check() && auth()->id() !== $post->user_id)
+            <div class="mt-4 p-8 bg-white w-full rounded-2xl">
+                <form method="post" action="{{ route('post.comment.store', $post->id) }}">
                     @csrf
-                    @method('delete')
-                    <x-custom-button class="border ml-2 hover:bg-orange-600 hover:text-white">
-                        削除
+                    <label for="content" class="font-semibold flex gap-2 mb-2">
+                        コメントを送る
+                    </label>
+                    <textarea name="content" id="content" cols="30" rows="3"
+                        class="w-full py-2 border border-gray-300 rounded-md"></textarea>
+                    <x-custom-button class="border mt-2 ml-auto bg-orange-600 text-white">
+                        送信
                     </x-custom-button>
                 </form>
             </div>
-        </div>
-        {{-- コメント投稿フォーム --}}
-        <form action="post" action="{{ route('post.comment.store', $post->id) }}">
-            @csrf
-            <label for="content" class="font-semibold mt-8 flex gap-2 mb-2">
-                    コメント内容：
-            </label>
-            <textarea name="content" id="content" cols="30" rows="10" class="w-auto py-2 border border-gray-300 rounded-md"></textarea>
-            <x-custom-button class="border ml-2 hover:bg-orange-600 hover:text-white">
-                コメントする
-            </x-custom-button>
-        </form>
+        @endif
         {{-- コメント投稿フォーム --}}
         <a href="{{ route('post.index') }}" class="block mt-8 w-24 m-auto text-center">一覧に戻る ></a>
     </div>
