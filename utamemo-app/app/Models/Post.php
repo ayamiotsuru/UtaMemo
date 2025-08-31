@@ -15,8 +15,13 @@ class Post extends Model
         'user_id'
     ];
 
-    //リレーションの設定
+    //1つの投稿は1人のユーザーと結びつく（リレーションの設定）
     public function user() {
         return $this->belongsTo(User::class);
+    }
+
+    //1つの投稿は複数のコメントと結びつく（リレーション設定）
+    public function comments() {
+        return $this->hasMany(Comment::class);
     }
 }

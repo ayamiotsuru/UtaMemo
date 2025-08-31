@@ -46,9 +46,13 @@ class User extends Authenticatable
         ];
     }
 
-    //リレーションの設定
+    //1人のユーザーは複数の投稿と結びつく（リレーションの設定）
     public function posts(){
         return $this->hasMany(Post::class);
     }
 
+    //1人のユーザーは複数のコメントと結びつく（リレーション設定）
+    public function comments() {
+        return $this->hasMany(Comment::class);
+    }
 }
