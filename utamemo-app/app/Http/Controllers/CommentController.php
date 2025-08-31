@@ -31,7 +31,10 @@ class CommentController extends Controller
     public function store(Request $request, Post $post)//新規保存処理
     {
         $request->validate([
-            'content' => 'required|max:400',
+            'content' => 'required|max:400'
+        ], [
+            'content.required' => 'コメントを入力してください。',
+            'content.max' => 'コメントは400文字以内で入力してください。',
         ]);
 
         Comment::create([
@@ -70,8 +73,10 @@ class CommentController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Comment $comment)//データの削除
+    public function destroy(Post $post, Comment $comment, Request $request)//データの削除
     {
-        //
+        $comment->delete();
+        $request->session()->flash('message', 'コメントを削除しました。');
+        return redirect()->route('post.show', $post->id);//コメントしている該当の投稿個別ページに戻る
     }
 }

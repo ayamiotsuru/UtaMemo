@@ -6,6 +6,7 @@
     </x-slot>
     <div class="max-w-7xl mx-auto px-6">
         <x-message :message="session('message')" />
+        {{-- <x-message :message="session('message')" /> --}}
         <div class="mt-4 p-8 bg-white w-full rounded-2xl">
             <div class="flex items-center">
                 @if ($post->status == 0)
@@ -65,11 +66,22 @@
         </div>
         {{-- コメント表示 --}}
         <div class="mt-4 p-8 bg-white w-full rounded-2xl">
-            <h3 class="mb-4 text-lg font-semibold">みんなからのコメント</h3>
+            <h3 class="text-lg font-semibold">みんなからのコメント</h3>
             @forelse($post->comments as $comment){{-- 要素が空だった場合の処理も同時に書ける構文 --}}
-                <div class="pt-10 pb-3">
-                    <p>{{ $comment->content }}</p>
-                    <p class="text-right"> {{ $comment->created_at }}  / {{ $comment->user->name ?? '匿名' }}</p>
+                <div class="flex justify-between py-6">
+                    <p class="w-3/4 pr-4 border-r">{{ $comment->content }}</p>
+                    <div class="w-1/4 ml-4 mt-auto">
+                        <p class="text-right mb-2"> {{ $comment->created_at }}  / {{ $comment->user->name ?? '匿名' }}</p>
+                        <form method="post" action="{{ route('post.comment.destroy', ['post' => $post->id, 'comment' => $comment->id]) }}" onsubmit="return confirm('本当に削除しますか？')">
+                            @csrf
+                            @method('delete')
+                            @if (auth()->check() && auth()->id() === $comment->user_id)
+                                <x-custom-button class="border ml-auto hover:bg-orange-600 hover:text-white">
+                                    削除
+                                </x-custom-button>
+                            @endif
+                        </form>
+                    </div>
                 </div>
                 <hr class="w-full">
             @empty
@@ -85,15 +97,16 @@
                     <label for="content" class="font-semibold flex gap-2 mb-2">
                         コメントを送る
                     </label>
+                    <x-input-error :messages="$errors->get('content')" class="mt-2" />
                     <textarea name="content" id="content" cols="30" rows="3"
-                        class="w-full py-2 border border-gray-300 rounded-md"></textarea>
-                    <x-custom-button class="border mt-2 ml-auto bg-orange-600 text-white">
+                        class="w-full py-2 border border-gray-300 rounded-md">{{ old('content') }}</textarea>
+                    <x-custom-button class="ml-auto bg-slate-600 text-white hover:bg-sky-400">
                         送信
                     </x-custom-button>
                 </form>
             </div>
         @endif
         {{-- コメント投稿フォーム --}}
-        <a href="{{ route('post.index') }}" class="block mt-8 w-24 m-auto text-center">一覧に戻る ></a>
+        <a href="{{ route('post.index') }}" class="block mt-8 w-24 m-auto text-center pb-8">一覧に戻る ></a>
     </div>
 </x-app-layout>

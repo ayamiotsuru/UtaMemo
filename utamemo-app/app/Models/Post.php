@@ -22,6 +22,7 @@ class Post extends Model
 
     //1つの投稿は複数のコメントと結びつく（リレーション設定）
     public function comments() {
-        return $this->hasMany(Comment::class);
+        return $this->hasMany(Comment::class)->orderBy('created_at', 'desc');
+        //->orderBy('created_at', 'desc')を取得すると常に新しいものが上から並ぶ
     }
 }
