@@ -53,7 +53,7 @@
                         {{ $post->comment }}
                     </p>
                     <p class="text-right">
-                        {{ $post->created_at }} / {{ $post->user->name ?? '匿名' }}
+                        <img src="{{ asset('img/icon_comment.svg') }}" alt="" class="w-5 inline mr-1 pb-1">{{ $post->comments()->count() }} / {{ $post->user->name ?? '匿名' }} / {{ $post->created_at }}
                     </p>
                 </div>
             </a>

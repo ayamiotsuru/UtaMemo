@@ -69,9 +69,9 @@
             <h3 class="text-lg font-semibold">みんなからのコメント / <img src="{{ asset('img/icon_comment.svg') }}" alt="" class="w-5 inline mr-1 pb-1">{{ $post->comments()->count() }}</h3>
             @forelse($post->comments as $comment){{-- 要素が空だった場合の処理も同時に書ける構文 --}}
                 <div class="flex justify-between py-6">
-                    <p class="w-3/4 pr-4 border-r">{{ $comment->content }}</p>
+                    <p class="w-full pr-4 border-r">{{ $comment->content }}</p>
                     <div class="w-1/4 ml-4 mt-auto">
-                        <p class="text-right mb-2"> {{ $comment->created_at }}  / {{ $comment->user->name ?? '匿名' }}</p>
+                        <p class="text-right mb-2">{{ $comment->user->name ?? '匿名' }} / {{ $comment->created_at }} </p>
                         <form method="post" action="{{ route('post.comment.destroy', ['post' => $post->id, 'comment' => $comment->id]) }}" onsubmit="return confirm('本当に削除しますか？')">
                             @csrf
                             @method('delete')
@@ -91,7 +91,7 @@
         {{-- コメント表示 --}}
         {{-- コメント投稿フォーム --}}
         @if (auth()->check() && auth()->id() !== $post->user_id)
-            <div class="mt-4 p-8 bg-white w-full rounded-2xl">
+            <div class="mt-4 p-8 bg-gray-200 w-full rounded-2xl">
                 <form method="post" action="{{ route('post.comment.store', $post->id) }}">
                     @csrf
                     <label for="content" class="font-semibold flex gap-2 mb-2">
