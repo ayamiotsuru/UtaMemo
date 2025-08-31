@@ -44,7 +44,7 @@
                 {{ $post->comment }}
             </p>
             <p class="text-right">
-                {{ $post->comments()->count() }} / {{ $post->created_at }} / {{ $post->user->name ?? '匿名' }}
+                <img src="{{ asset('img/icon_comment.svg') }}" alt="" class="w-5 inline mr-1 pb-1">{{ $post->comments()->count() }} / {{ $post->created_at }} / {{ $post->user->name ?? '匿名' }}
             </p>
             <div class="flex mt-4 justify-end">
                 @if (auth()->check() && auth()->id() === $post->user_id)
@@ -66,7 +66,7 @@
         </div>
         {{-- コメント表示 --}}
         <div class="mt-4 p-8 bg-white w-full rounded-2xl">
-            <h3 class="text-lg font-semibold">みんなからのコメント</h3>
+            <h3 class="text-lg font-semibold">みんなからのコメント / <img src="{{ asset('img/icon_comment.svg') }}" alt="" class="w-5 inline mr-1 pb-1">{{ $post->comments()->count() }}</h3>
             @forelse($post->comments as $comment){{-- 要素が空だった場合の処理も同時に書ける構文 --}}
                 <div class="flex justify-between py-6">
                     <p class="w-3/4 pr-4 border-r">{{ $comment->content }}</p>
