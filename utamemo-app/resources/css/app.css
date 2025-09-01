@@ -1,3 +1,10 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.bg_orange {
+    background-color: #F44900;
+}
+.bg_sky {
+    background-color: #00BCFF;
+}

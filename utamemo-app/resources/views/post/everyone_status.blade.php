@@ -14,10 +14,10 @@
             {{-- trueの場合、式1を実行　falseの場合、式2を実行 --}}
             {{-- 条件式の意味は　現在のルート名がpost.everyone_statusなら かつ 現在のリクエストのルートパラメータ {status} が 1 なら ということ --}}
             {{-- 条件式が成り立てば、クラス名activeを付与し、成り立たなければ空。→クラス名activeによって背景色などを切り替えられる。 --}}
-            <a href="{{ route('post.everyone_status', 1) }}" class="{{ request()->routeIs('post.everyone_status') && request()->route('status') == 1 ? 'active' : '' }} px-10 py-4 bg-orange-600 text-white font-semibold rounded-t-lg transition duration-300 relative z-10 left-2 border-2 border-white hover:bg-orange-500">
+            <a href="{{ route('post.everyone_status', 1) }}" class="{{ request()->routeIs('post.everyone_status') && request()->route('status') == 1 ? 'bg_orange' : '' }} px-10 py-4 bg-slate-500 text-white font-semibold rounded-t-lg transition duration-300 relative z-10 left-2 border-2 border-white hover:bg-orange-500">
                 オハコ曲
             </a>
-            <a href="{{ route('post.everyone_status', 0) }}" class=" {{ request()->routeIs('post.everyone_status') && request()->route('status') == 0 ? 'active' : '' }} pr-10 pl-12 py-4 bg-sky-400 text-white font-semibold rounded-tr-lg transition duration-300 relative border-2 border-white hover:bg-sky-300">
+            <a href="{{ route('post.everyone_status', 0) }}" class=" {{ request()->routeIs('post.everyone_status') && request()->route('status') == 0 ? 'bg_sky' : '' }} pr-10 pl-12 py-4 bg-slate-500 text-white font-semibold rounded-tr-lg transition duration-300 relative border-2 border-white hover:bg-sky-300">
                 練習中
             </a>
         </div>
