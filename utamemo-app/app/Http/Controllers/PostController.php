@@ -12,6 +12,10 @@ class PostController extends Controller
      */
     public function index() //一覧表示
     {
+
+        // 直前に見ていた一覧へ戻るため、一覧URLをセッションに保存しpost.showで活用
+        session(['back_url' => url()->full()]);
+
         // $posts = Post::all();//すべての投稿を取得
         $posts = Post::where('user_id', auth()->id())->latest()->paginate(10); //ログインユーザーのポストだけを取得し10件ずつにする
         return view('post.index', compact('posts'));
@@ -61,7 +65,11 @@ class PostController extends Controller
      */
     public function show(Post $post) //個別表示
     {
-        return view('post.show', compact('post'));
+        // 直前に見ていた一覧へ戻る
+        // セッションに保存されたback_urlを取得し変数$backUrlに格納→show.blade.phpで利用
+        $backUrl = session('back_url', route('post.index'));
+
+        return view('post.show', compact('post', 'backUrl'));
     }
 
     /**
@@ -113,6 +121,10 @@ class PostController extends Controller
     //練習中とオハコの一覧ページを設定
     public function statusPosts($status)
     {
+
+         // 直前に見ていた一覧へ戻るため、一覧URLをセッションに保存しpost.showで活用
+        session(['back_url' => url()->full()]);
+
         $posts = Post::where('user_id', auth()->id())// ログインユーザーのポストだけを取得
             ->latest()
             ->where('status', $status)// さらに$statusでURLから受け取った値（ルート側の設定がある）で絞り込み
@@ -124,6 +136,9 @@ class PostController extends Controller
     //うたメモ利用者全員の投稿を取得するための設定
     public function everyonePosts() {
 
+         // 直前に見ていた一覧へ戻るため、一覧URLをセッションに保存しpost.showで活用
+        session(['back_url' => url()->full()]);
+
         $posts = Post::where('user_id', '!=', auth()->id())->latest()->paginate(10); //ログインユーザーの以外のポストだけを取得し10件ずつにする
         // $posts=Post::latest()->paginate(10);
         // $posts=Post::all();
@@ -133,6 +148,9 @@ class PostController extends Controller
     //うたメモ利用者全員の投稿の中でステートを振り分けるための設定
     public function everyoneStatusPosts($status)
     {
+         // 直前に見ていた一覧へ戻るため、一覧URLをセッションに保存しpost.showで活用
+        session(['back_url' => url()->full()]);
+
         $posts = Post::where('user_id', '!=', auth()->id())// ログインユーザー以外のポストだけを取得
             ->latest()
             ->where('status', $status)// さらに$statusでURLから受け取った値（ルート側の設定がある）で絞り込み

@@ -6,7 +6,6 @@
     </x-slot>
     <div class="max-w-7xl mx-auto px-6">
         <x-message :message="session('message')" />
-        {{-- <x-message :message="session('message')" /> --}}
         <div class="mt-4 p-8 bg-white w-full rounded-2xl">
             <div class="flex items-center">
                 @if ($post->status == 0)
@@ -107,9 +106,6 @@
             </div>
         @endif
         {{-- コメント投稿フォーム --}}
-        {{-- ↓修正が必要 --}}
-        <a href="{{ route('post.index') }}" class="block mt-8 w-24 m-auto text-center pb-8">一覧に戻る ></a>
-        {{-- ↓投稿後に不都合が出る --}}
-        {{-- <a href="{{ url()->previous() }}" class="block mt-8 w-24 m-auto text-center pb-8">一覧に戻る ></a> --}}
+        <a href="{{ $backUrl }}" class="block mt-8 w-24 m-auto text-center pb-8">一覧に戻る ></a>
     </div>
 </x-app-layout>
