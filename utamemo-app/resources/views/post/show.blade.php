@@ -107,6 +107,9 @@
             </div>
         @endif
         {{-- コメント投稿フォーム --}}
+        {{-- ↓修正が必要 --}}
         <a href="{{ route('post.index') }}" class="block mt-8 w-24 m-auto text-center pb-8">一覧に戻る ></a>
+        {{-- ↓投稿後に不都合が出る --}}
+        {{-- <a href="{{ url()->previous() }}" class="block mt-8 w-24 m-auto text-center pb-8">一覧に戻る ></a> --}}
     </div>
 </x-app-layout>
