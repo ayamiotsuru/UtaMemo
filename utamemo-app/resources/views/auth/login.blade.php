@@ -37,11 +37,11 @@
                 {{ __('Log in') }}
             </x-custom-button>
             @if (Route::has('password.request'))
-                <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('password.request') }}">
+                <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md foacus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('password.request') }}">
                     {{ __('Forgot your password?') }}
                 </a>
             @endif
-
+            <a href=" {{ route('register') }} " class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md foacus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 mt-2">新規アカウント作成</a>
         </div>
     </form>
 </x-guest-layout>
