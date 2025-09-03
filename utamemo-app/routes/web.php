@@ -27,7 +27,7 @@ Route::resource('post.comment', CommentController::class)
 
 //post用の機能を一括設定
 Route::resource('post', PostController::class)
-    ->middleware('auth');//ログインユーザー以外は投稿ページ関連には飛べない。ログインにリダイレクトされる。
+    ->middleware(['auth', 'verified']);//ログインユーザーかつメール認証済み以外は投稿ページ関連には飛べない。ログインにリダイレクトされる。
 
 Route::get('/', function () {
     // return view('welcome');

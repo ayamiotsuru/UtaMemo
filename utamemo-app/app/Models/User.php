@@ -2,12 +2,19 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Contracts\Auth\MustVerifyEmail;//メール認証（2段階認証）を有効のため
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
-class User extends Authenticatable
+// MustVerifyEmailインターフェイスを実装(メール認証（2段階認証）)
+// class User extends Authenticatable implements MustVerifyEmail
+// {
+//     use Notifiable;
+// }
+
+class User extends Authenticatable implements MustVerifyEmail
+//implements MustVerifyEmailはメール認証（2段階認証)のため追加
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
@@ -55,4 +62,7 @@ class User extends Authenticatable
     public function comments() {
         return $this->hasMany(Comment::class);
     }
+
+    //メール認証（2段階認証）を有効のため
+    use Notifiable;
 }
