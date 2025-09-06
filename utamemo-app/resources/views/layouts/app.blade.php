@@ -25,7 +25,6 @@
                         {{ $header }}
                     </div>
                 </header>
-                <x-search-form />
             @endisset
 
             <!-- Page Content -->

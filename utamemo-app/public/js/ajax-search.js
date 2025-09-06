@@ -1,8 +1,8 @@
 // 検索フォームのクラスを探し、forEachで一つづつ処理。
-document.querySelectorAll('search-form').forEach((searchBox) => {
+document.querySelectorAll('.search-form').forEach((searchBox) => {
     // 引数（searchBox）を設定し、渡ってきた要素の中でクラスを検索し変数に代入している。
-    const searchInput = searchBox.querySelector('search-input');
-    const resultList = searchBox.querySelector('search-results');
+    const searchInput = searchBox.querySelector('.search-input');
+    const resultList = searchBox.querySelector('.search-results');
 
     // もしクラスがなければ処理終了
     if(!searchInput || !resultList){
@@ -29,7 +29,7 @@ document.querySelectorAll('search-form').forEach((searchBox) => {
             resultList.innerHTML = "";
 
             // 検索結果が0なら該当なしと表示し処理終了
-            if(data.length() === 0){
+            if(data.length === 0){
                 resultList.innerHTML = '<li>該当なし</li>';
                 return;
             }
@@ -40,14 +40,14 @@ document.querySelectorAll('search-form').forEach((searchBox) => {
 
                 const listLink = document.createElement('a');
                 listLink.href = `/post/${post.id}`;
-                listLink.textContent = `${post.title}`;
+                listLink.textContent = `${post.song}`;
 
                 listItem.appendChild(listLink);
                 resultList.appendChild(listItem);
             });
         }
         catch(error) {
-            console.error;
+            console.error(error);
         }
     });
 });

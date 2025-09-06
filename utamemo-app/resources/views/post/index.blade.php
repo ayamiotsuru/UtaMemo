@@ -3,6 +3,7 @@
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             {{ Auth::user()->name }}のうたメモ
         </h2>
+        <x-search-form />
     </x-slot>
     <div class="max-w-7xl mx-auto px-6 pb-24">
         <x-message :message="session('message')" />
