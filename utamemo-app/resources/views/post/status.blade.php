@@ -1,13 +1,16 @@
 {{-- ルート設定でstatusの値を絞り込み、コントローラーで$statusという変数になり、かつ絞り込み（DB検索）に利用されてビューが表示される。すでに絞り込まれているので、blade側で$statusというのは一度しか出てこない。 --}}
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            @if ($status == 0)
-                {{ Auth::user()->name }}の練習中の曲
-            @else
-                {{ Auth::user()->name }}のオハコ曲
-            @endif
-        </h2>
+        <div class="flex justify-between items-center">
+            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+                @if ($status == 0)
+                    {{ Auth::user()->name }}の練習中の曲
+                @else
+                    {{ Auth::user()->name }}のオハコ曲
+                @endif
+            </h2>
+            <x-search-form />
+        </div>
     </x-slot>
     <div class="max-w-7xl mx-auto px-6 pb-24">
         <x-message :message="session('message')" />

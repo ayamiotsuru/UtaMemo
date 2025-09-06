@@ -2,9 +2,46 @@
 @tailwind components;
 @tailwind utilities;
 
+/* みんなのうたメモのタブ切り替え */
 .bg_orange {
     background-color: #F44900;
 }
 .bg_sky {
     background-color: #00BCFF;
+}
+
+/* 検索フォームパーツ */
+.search-form {
+    position: relative;
+}
+.search-results {
+    display: none;
+    position: absolute;
+    z-index: 1;
+    width: 100%;
+    background-color: #eee;
+    border-radius: 0 0 10px 10px;
+    padding: 1em;
+}
+.search-results li {
+    font-weight: bold;
+    margin-bottom: 0.8em;
+}
+.search-results li:hover {
+    opacity: 0.7;
+    transition: 0.3s;
+}
+/* 検索フォームパーツのオハコ曲or練習中 */
+.status-badge {
+    font-size: 12px;
+    padding: 4px 8px;
+    border-radius: 9999px;
+    color: #fff;
+    margin-right: 6px;
+}
+.status-badge.practice {
+    background-color: #00BCFF;
+}
+.status-badge.favorite {
+    background-color: #F44900;
 }

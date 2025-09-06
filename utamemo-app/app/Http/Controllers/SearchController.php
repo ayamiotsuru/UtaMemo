@@ -8,16 +8,25 @@ use App\Models\Post;
 class SearchController extends Controller
 {
     public function ajaxSearch(Request $request){
-        $query = $request->input('query');// $request->input('query');のsearchWordはjsと同じ名前を使用しておく
-        $request = [];
+        // リクエストの中からqueryという名前の値を取り出すという意味
+        // abcという入力であれば「query=abc」というリクエストを受け取り、結果として"abc"が得られる。
+        $query = $request->input('query');
 
         if(!empty($query)) {
-            $results = Post::where('song', 'LIKE', "%{$query}%")// ポストテーブルのsongカラムを'LiKE'で部分一致検索。%%は含まれているか。
-            ->where('user_id', auth()->id())
-            ->limit(10)->get(['id', 'song']);
+            // ログインユーザーのみに絞り込み
+            $results = Post::where('user_id', auth()->id())
+            // ここで$request->input('query');で得た結果（例だとabc）をDBの検索に利用している。
+            // クロージャーでグループ化し検索条件に不具合が起こらないようにする
+            ->where(function($q) use ($query) {
+                // ポストテーブルのsongカラムを'LIKE'で部分一致検索。%%はその文字列が含まれているか。
+                $q->where('song', 'LIKE', "%{$query}%")
+                ->orWhere('artist', 'LIKE', "%{$query}%");
+            })
+            // 使用するカラムだけ取得
+            ->get(['id', 'status', 'song', 'artist']);
         }
-
-        return response()->json($results);// $resultsをJSON形式に変換しHTTPレスポンスとして返す→JS側で非同期通信(Ajax)で取得可能になる。
+        // $resultsをJSON形式に変換しHTTPレスポンスとして返す→JS側で非同期通信(Ajax)で取得可能になる。
+        return response()->json($results);
 
     }
 }

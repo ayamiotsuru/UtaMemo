@@ -1,9 +1,11 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ Auth::user()->name }}のうたメモ
-        </h2>
-        <x-search-form />
+        <div class="flex justify-between items-center">
+            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+                {{ Auth::user()->name }}のうたメモ
+            </h2>
+            <x-search-form />
+        </div>
     </x-slot>
     <div class="max-w-7xl mx-auto px-6 pb-24">
         <x-message :message="session('message')" />
