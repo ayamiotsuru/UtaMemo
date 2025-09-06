@@ -25,6 +25,7 @@
                         {{ $header }}
                     </div>
                 </header>
+                <x-search-form />
             @endisset
 
             <!-- Page Content -->
@@ -32,5 +33,6 @@
                 {{ $slot }}
             </main>
         </div>
+        <script src="{{ asset('js/ajax-search.js') }}"></script>
     </body>
 </html>
