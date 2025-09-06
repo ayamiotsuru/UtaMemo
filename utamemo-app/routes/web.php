@@ -4,6 +4,11 @@ use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\SearchController;
+
+// リアルタイム検索のためのルート
+Route::get('ajax/search',[SearchController::class, 'ajaxSearch'])
+->name('ajax.search');
 
 //うたメモ利用者全員の投稿の中でステートを振り分けるためのルート
 Route::get('post/everyone/{status}',[PostController::class,'everyoneStatusPosts'])
