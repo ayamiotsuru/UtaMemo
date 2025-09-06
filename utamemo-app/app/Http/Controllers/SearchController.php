@@ -22,6 +22,7 @@ class SearchController extends Controller
                 $q->where('song', 'LIKE', "%{$query}%")
                 ->orWhere('artist', 'LIKE', "%{$query}%");
             })
+            ->latest()// 新しい投稿が上
             // 使用するカラムだけ取得
             ->get(['id', 'status', 'song', 'artist']);
         }
