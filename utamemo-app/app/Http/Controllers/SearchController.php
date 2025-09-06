@@ -8,7 +8,7 @@ use App\Models\Post;
 class SearchController extends Controller
 {
     public function ajaxSearch(Request $request){
-        $query = $request->input('query');
+        $query = $request->input('searchWord');// $request->input('searchWord');のsearchWordはjsと同じ名前を使用しておく
         $request = [];
 
         if(!$query) {
