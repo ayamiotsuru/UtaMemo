@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use App\Models\Tag;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redis;
 
 class PostController extends Controller
 {
@@ -40,6 +42,7 @@ class PostController extends Controller
             'artist' => 'required|max:150',
             'pitch' => 'nullable',
             'comment' => 'required|max:400',
+            'tags' => 'nullable|string|max:50',
         ], [
             'status.required' => '練習中かオハコか選んでください。',
             'song.required' => '曲名を入力してください。',
@@ -52,7 +55,37 @@ class PostController extends Controller
 
         $validated['user_id'] = auth()->id();
 
+        // タグの保存関係
+        // 入力されたtagsがあれば、$tagsInput = tagsに。入力がなければ、$tagsInput = ''(空文字)が入る。
+        // 空文字を入れnullや未定義だとエラーになる可能性を防ぐ
+        $tagsInput = $validated['tags'] ?? '';
+        // PHPは内側から外側の順で処理される
+        // explode(',', $tagsInput)でカンマで文字列を分割して配列に
+        // array_map('trim', ...)でarray_mapは配列の各要素に関数を適用する = 各要素の前後の空白を削除
+        // array_filterで配列から「falseに評価される値」を取り除く = 空文字やnullを削除
+        $tags = array_filter(array_map('trim',explode(',',$tagsInput)));
+        //重複を削除
+        $tags = array_unique($tags);
+
+        // 空の配列を用意 ???
+        $tagIds = [];
+        // foreach($配列 as $要素)で配列の要素の1塊($tagName)を取り出す
+        foreach($tags as $tagName) {
+            // タグテーブルでタグ名を探し、あれば取得、なければ作成。それを$tagに格納
+            $tag = Tag::firstOrCreate(['name' => $tagName]);
+
+            // ???
+            // &&（論理AND）両方の条件がtrueのときだけif内の処理が実行
+            // $tagが取得できるか否か
+            if($tag && $tag->id) {
+                $tagIds[] = $tag->id;
+            }
+        }
+
         $post = Post::create($validated);
+
+        // タグを中間テーブルに登録 ????
+        $post->tags()->sync($tagIds);
 
         // $posts = Post::all(); //投稿一覧を取得
         $posts = Post::where('user_id', auth()->id())->get(); //ログインユーザーのポスト
@@ -91,6 +124,7 @@ class PostController extends Controller
             'artist' => 'required|max:150',
             'pitch' => 'nullable',
             'comment' => 'required|max:400',
+            'tags' => 'nullable|string|max:50',
         ], [
             'status.required' => '練習中かオハコか選んでください。',
             'song.required' => '曲名を入力してください。',
@@ -103,7 +137,38 @@ class PostController extends Controller
 
         $validated['user_id'] = auth()->id();
 
+        // タグの保存関係
+        // 入力されたtagsがあれば、$tagsInput = tagsに。入力がなければ、$tagsInput = ''(空文字)が入る。
+        // 空文字を入れnullや未定義だとエラーになる可能性を防ぐ
+        $tagsInput = $validated['tags'] ?? '';
+        // PHPは内側から外側の順で処理される
+        // explode(',', $tagsInput)でカンマで文字列を分割して配列に
+        // array_map('trim', ...)でarray_mapは配列の各要素に関数を適用する = 各要素の前後の空白を削除
+        // array_filterで配列から「falseに評価される値」を取り除く = 空文字やnullを削除
+        $tags = array_filter(array_map('trim',explode(',',$tagsInput)));
+        //重複を削除
+        $tags = array_unique($tags);
+
+        // 空の配列を用意 ???
+        $tagIds = [];
+        // foreach($配列 as $要素)で配列の要素の1塊($tagName)を取り出す
+        foreach($tags as $tagName) {
+            // タグテーブルでタグ名を探し、あれば取得、なければ作成。それを$tagに格納
+            $tag = Tag::firstOrCreate(['name' => $tagName]);
+
+            // ???
+            // &&（論理AND）両方の条件がtrueのときだけif内の処理が実行
+            // $tagが取得できるか否か
+            if($tag && $tag->id) {
+                $tagIds[] = $tag->id;
+            }
+        }
+
         $post->update($validated);
+
+        // タグを中間テーブルに登録 ????
+        $post->tags()->sync($tagIds);
+
         $request->session()->flash('message', '更新しました。');
         return redirect()->route('post.show', compact('post'));
     }
@@ -134,8 +199,8 @@ class PostController extends Controller
     }
 
     //うたメモ利用者全員の投稿を取得するための設定
-    public function everyonePosts() {
-
+    public function everyonePosts()
+    {
          // 直前に見ていた一覧へ戻るため、一覧URLをセッションに保存しpost.showで活用
         session(['back_url' => url()->full()]);
 
@@ -157,5 +222,19 @@ class PostController extends Controller
             ->paginate(10); //10件ずつにする
 
         return view('post.everyone_status', compact('posts', 'status'));
+    }
+
+    // タグ検索の一覧を表示するための設定
+    public function searchByTag(Request $request)
+    {
+        //URLからタグ名を取得
+        $tagName = $request->input('tag');
+
+        $posts = Post::whereHas('tags',function($query) use ($tagName) {
+            $query->where('name', $tagName);
+        })->get();
+
+        //　ビューに渡す
+        return view('post.index', compact('posts'));
     }
 }

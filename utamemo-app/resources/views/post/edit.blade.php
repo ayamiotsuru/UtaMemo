@@ -35,6 +35,13 @@
                     <input type="text" name="pitch" class="w-auto pu-2 border border-gray-300 rounded-md" id="pitch" value="{{ old('pitch', $post->pitch) }}">
                 </div>
             </div>
+            <div class="mt-8">
+                <div class="w-full flex flex-col">
+                    <label for="tags" class="font-semibold mt-4 mb-2">タグ
+                    </label>
+                    <input type="text" name="tags" class="w-auto pu-2 border border-gray-300 rounded-md" id="tags" value="{{ old('tags', $post->tags->pluck('name')->implode(',')) }}" placeholder="タグをカンマで区切って入力してください">
+                </div>
+            </div>
             <div class="mt-4">
                 <x-input-error :messages="$errors->get('status')" class="mt-2" />
                 <div class="flex mt-12 mb-4 items-center">

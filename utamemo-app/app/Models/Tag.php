@@ -9,8 +9,8 @@ class Tag extends Model
     protected $fillable = [
         'name',
     ];
-    //1人のタグは複数の投稿と結びつく（リレーション設定）
+    //1つのタグは1つのポストと結びつく（リレーション設定）???
     public function posts() {
-        return $this->hasMany(Post::class);
+        return $this->belongsToMany(Post::class);
     }
 }

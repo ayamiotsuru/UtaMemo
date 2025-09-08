@@ -10,7 +10,6 @@
     <div class="max-w-7xl mx-auto px-6 pb-24">
         <x-message :message="session('message')" />
         @forelse ($posts as $post){{-- 要素が空だった場合の処理も同時に書ける構文 --}}
-        <a href="{{route('post.show',$post)}}" class="block transition-transform duration-300 hover:translate-x-4 hover:opacity-75">
             <div class="mt-4 p-8 bg-white w-full rounded-2xl">
                 <div class="flex items-center">
                     @if( $post->status == 0)
@@ -46,16 +45,23 @@
                 <p class="mt-4 p-4">
                     {{ $post->comment }}
                 </p>
+                <p>
+                    @foreach ($post->tags as $tag)
+                        <span  class="ml-4 font-bold hover:text-orange-400 transition duration-300">
+                            #<a href="{{ route('post.search', ['tag' => $tag->name]) }}" class="tag-link">{{ $tag->name }}</a>
+                        </span>
+                    @endforeach
+                </p>
                 <p class="text-right">
                     <img src="{{ asset('img/icon_comment.svg') }}" alt="" class="w-5 inline mr-1 pb-1">{{ $post->comments()->count() }} / {{$post->user->name??'匿名'}} / {{$post->created_at}}
                 </p>
+                <a href="{{route('post.show',$post)}}" class="block w-24 py-2 px-8 ml-auto mt-2 bg-slate-600 rounded-md text-white text-center font-bold transition duration-300 hover:bg-sky-400">詳細</a>
             </div>
-        </a>
         @empty
             <p class="text-gray-600 mt-4">まだ投稿がありません。</p>
         @endforelse
-        <div class="my-6">
+        {{-- <div class="my-6">
             {{ $posts->links() }}
-        </div>
+        </div> --}}
     </div>
 </x-app-layout>

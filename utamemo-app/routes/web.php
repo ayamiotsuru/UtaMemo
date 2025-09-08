@@ -6,6 +6,10 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\SearchController;
 
+// タグ検索のためのルート
+Route::get('/post/search', [PostController::class, 'searchByTag'])
+->name('post.search');
+
 // リアルタイム検索のためのルート
 Route::get('ajax/search',[SearchController::class, 'ajaxSearch'])
 ->name('ajax.search');
