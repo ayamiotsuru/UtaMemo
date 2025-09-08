@@ -28,7 +28,7 @@
     margin-bottom: 0.8em;
 }
 .search-results li:hover {
-    opacity: 0.7;
+    opacity: 0.4;
     transition: 0.3s;
 }
 /* 検索フォームパーツのオハコ曲or練習中 */

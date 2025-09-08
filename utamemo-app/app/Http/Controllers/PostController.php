@@ -227,7 +227,6 @@ class PostController extends Controller
     // タグ検索の一覧を表示するための設定
     public function searchByTag(Request $request)
     {
-
         // 直前に見ていた一覧へ戻るため、一覧URLをセッションに保存しpost.showで活用
         session(['back_url' => url()->full()]);
 
@@ -238,7 +237,12 @@ class PostController extends Controller
         ->whereHas('tags', function($query) use ($tagName) {
             $query->where('name', $tagName);
         })
-        ->paginate(10); 
+        ->paginate(10);
+
+        // ページネーションリンクにクエリ文字列を付加
+        // これがないとタグ検索をかけている状態で、2ページ目にいくとタグ検索のパラメータ（タグのワード）がURLから消えてしまう。
+        // 例：/post/search?tag=人気&page=2にしたいのに/post/search?page=2になる。
+        $posts->appends(['tag' => $tagName]);
 
         //　ビューに渡す
         return view('post.index', compact('posts', 'tagName'));
