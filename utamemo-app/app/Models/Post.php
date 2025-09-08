@@ -25,4 +25,10 @@ class Post extends Model
         return $this->hasMany(Comment::class)->orderBy('created_at', 'desc');
         //->orderBy('created_at', 'desc')を取得すると常に新しいものが上から並ぶ
     }
+
+    //1つの投稿は複数のタグと結びつく（リレーション設定）
+    public function tags() {
+        return $this->hasMany(Tag::class);
+    }
+
 }
