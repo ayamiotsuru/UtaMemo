@@ -42,6 +42,13 @@
             <p class="mt-4 p-4">
                 {{ $post->comment }}
             </p>
+            <p>
+                @foreach ($post->tags as $tag)
+                    <span class="ml-4 font-bold transition duration-300 hover:opacity-30">
+                        #<a href="{{ route('post.search', ['tag' => $tag->name]) }}" class="tag-link">{{ $tag->name }}</a>
+                    </span>
+                @endforeach
+            </p>
             <p class="text-right">
                 <img src="{{ asset('img/icon_comment.svg') }}" alt="" class="w-5 inline mr-1 pb-1">{{ $post->comments()->count() }} / {{ $post->created_at }} / {{ $post->user->name ?? '匿名' }}
             </p>

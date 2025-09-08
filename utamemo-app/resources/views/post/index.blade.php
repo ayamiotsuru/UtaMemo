@@ -8,6 +8,9 @@
         </div>
     </x-slot>
     <div class="max-w-7xl mx-auto px-6 pb-24">
+        @if(!empty($tagName))
+            <p class="mt-4 font-bold text-orange-600 text-lg">タグ検索結果: {{ $tagName }}</p>
+        @endif
         <x-message :message="session('message')" />
         @forelse ($posts as $post){{-- 要素が空だった場合の処理も同時に書ける構文 --}}
             <div class="mt-4 p-8 bg-white w-full rounded-2xl">
@@ -47,7 +50,7 @@
                 </p>
                 <p>
                     @foreach ($post->tags as $tag)
-                        <span  class="ml-4 font-bold hover:text-orange-400 transition duration-300">
+                        <span class="ml-4 font-bold transition duration-300 hover:opacity-30">
                             #<a href="{{ route('post.search', ['tag' => $tag->name]) }}" class="tag-link">{{ $tag->name }}</a>
                         </span>
                     @endforeach
@@ -60,8 +63,8 @@
         @empty
             <p class="text-gray-600 mt-4">まだ投稿がありません。</p>
         @endforelse
-        {{-- <div class="my-6">
+        <div class="my-6">
             {{ $posts->links() }}
-        </div> --}}
+        </div>
     </div>
 </x-app-layout>

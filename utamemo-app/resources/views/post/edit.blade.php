@@ -16,7 +16,7 @@
                     </label>
                     <x-input-error :messages="$errors->get('song')" class="mt-2" />
                     <input type="text" name="song" class="w-auto pu-2 border border-gray-300 rounded-md"
-                        id="song" value="{{ old('song', $post->song) }}">
+                        id="song" value="{{ old('song', $post->song) }}" placeholder="例）SnowMan">
                 </div>
             </div>
             <div class="mt-8">
@@ -26,20 +26,20 @@
                         <span class="block p-1 rounded-full w-16 text-center bg-orange-600 text-white font-semibold text-xs">必須</span>
                     </label>
                     <x-input-error :messages="$errors->get('artist')" class="mt-2" />
-                    <input type="text" name="artist" class="w-auto pu-2 border border-gray-300 rounded-md" id="artist" value="{{ old('artist', $post->artist) }}">
+                    <input type="text" name="artist" class="w-auto pu-2 border border-gray-300 rounded-md" id="artist" value="{{ old('artist', $post->artist) }}" placeholder="例）D.D.">
                 </div>
             </div>
             <div class="mt-8">
                 <div class="w-full flex flex-col">
                     <label for="pitch" class="font-semibold mt-4 mb-2">音程キー</label>
-                    <input type="text" name="pitch" class="w-auto pu-2 border border-gray-300 rounded-md" id="pitch" value="{{ old('pitch', $post->pitch) }}">
+                    <input type="text" name="pitch" class="w-auto pu-2 border border-gray-300 rounded-md" id="pitch" value="{{ old('pitch', $post->pitch) }}" placeholder="例）原曲キー">
                 </div>
             </div>
             <div class="mt-8">
                 <div class="w-full flex flex-col">
                     <label for="tags" class="font-semibold mt-4 mb-2">タグ
                     </label>
-                    <input type="text" name="tags" class="w-auto pu-2 border border-gray-300 rounded-md" id="tags" value="{{ old('tags', $post->tags->pluck('name')->implode(',')) }}" placeholder="タグをカンマで区切って入力してください">
+                    <input type="text" name="tags" class="w-auto pu-2 border border-gray-300 rounded-md" id="tags" value="{{ old('tags', $post->tags->pluck('name')->implode(',')) }}" placeholder="カンマで区切って入力してください。例）盛り上がる,お気に入り,アップテンポ">
                 </div>
             </div>
             <div class="mt-4">
@@ -61,7 +61,7 @@
                 <span class="block p-1 rounded-full w-16 text-center bg-orange-600 text-white font-semibold text-xs">必須</span>
                 </label>
                 <x-input-error :messages="$errors->get('comment')" class="mt-2" />
-                <textarea name="comment" id="comment" cols="30" rows="10" class="w-auto py-2 border border-gray-300 rounded-md">{{ old('comment', $post->comment) }}</textarea>
+                <textarea name="comment" id="comment" cols="30" rows="10" class="w-auto py-2 border border-gray-300 rounded-md" placeholder="例）カラオケで歌ったらめっちゃ盛り上がった。ペンライトがあったらもっと盛り上がったかも。">{{ old('comment', $post->comment) }}</textarea>
             </div>
             <x-custom-button class="mt-8 bg-slate-600 text-white hover:bg-sky-400 !w-full h-16">
                 更新する

@@ -227,14 +227,20 @@ class PostController extends Controller
     // タグ検索の一覧を表示するための設定
     public function searchByTag(Request $request)
     {
+
+        // 直前に見ていた一覧へ戻るため、一覧URLをセッションに保存しpost.showで活用
+        session(['back_url' => url()->full()]);
+
         //URLからタグ名を取得
         $tagName = $request->input('tag');
 
-        $posts = Post::whereHas('tags',function($query) use ($tagName) {
+        $posts = Post::where('user_id', auth()->id())  // ログインユーザーに絞る
+        ->whereHas('tags', function($query) use ($tagName) {
             $query->where('name', $tagName);
-        })->get();
+        })
+        ->paginate(10); 
 
         //　ビューに渡す
-        return view('post.index', compact('posts'));
+        return view('post.index', compact('posts', 'tagName'));
     }
 }
