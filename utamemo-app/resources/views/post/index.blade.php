@@ -49,8 +49,12 @@
                     {{ $post->comment }}
                 </p>
                 <p>
+                    {{-- $post->tags は Post モデルと Tag モデルのリレーションを通じて取得したコレクション --}}
+                    {{-- つまり「この投稿に紐づくタグの一覧」 --}}
+                    {{-- $tagにはループごとに Tag モデルの1つが入る --}}
                     @foreach ($post->tags as $tag)
                         <span class="ml-4 font-bold transition duration-300 hover:opacity-30">
+                            {{-- ['tag' => $tag->name]が?tag=タグ名の箇所（クエリパラメーターは?キー=値の形がWebのルール）） --}}
                             #<a href="{{ route('post.search', ['tag' => $tag->name]) }}" class="tag-link">{{ $tag->name }}</a>
                         </span>
                     @endforeach

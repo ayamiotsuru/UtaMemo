@@ -55,8 +55,9 @@ class PostController extends Controller
 
         $validated['user_id'] = auth()->id();
 
-        // タグの保存関係
-        // 入力されたtagsがあれば、$tagsInput = tagsに。入力がなければ、$tagsInput = ''(空文字)が入る。
+    // タグの保存関係
+        // Null合体演算子
+        // 入力されたtagsが存在しておりnullでなければ、$tagsInput = tagsに。入力がなければ、$tagsInput = ''(空文字)が入る。
         // 空文字を入れnullや未定義だとエラーになる可能性を防ぐ
         $tagsInput = $validated['tags'] ?? '';
         // PHPは内側から外側の順で処理される
@@ -67,24 +68,23 @@ class PostController extends Controller
         //重複を削除
         $tags = array_unique($tags);
 
-        // 空の配列を用意 ???
+        // 空の配列を用意（タグ名に振られるidのため）
         $tagIds = [];
         // foreach($配列 as $要素)で配列の要素の1塊($tagName)を取り出す
         foreach($tags as $tagName) {
             // タグテーブルでタグ名を探し、あれば取得、なければ作成。それを$tagに格納
             $tag = Tag::firstOrCreate(['name' => $tagName]);
 
-            // ???
-            // &&（論理AND）両方の条件がtrueのときだけif内の処理が実行
-            // $tagが取得できるか否か
-            if($tag && $tag->id) {
+            //もし$tag->idがあれば、$tagIds[]に配列として格納
+            if($tag->id) {
                 $tagIds[] = $tag->id;
             }
         }
 
         $post = Post::create($validated);
 
-        // タグを中間テーブルに登録 ????
+        // タグのIDを中間テーブルに登録（$tagIds[]が持っている）
+        // sync()は中間テーブルにデータを登録・更新する関数。特徴は「渡した配列のIDだけを残してそれ以外は削除する」
         $post->tags()->sync($tagIds);
 
         // $posts = Post::all(); //投稿一覧を取得
